@@ -2,16 +2,14 @@
 
 export const dynamic = 'force-dynamic';
 
-import { db } from '@/lib/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { adminDb } from '@/lib/firebase-admin';
 
 export async function getUser(userId) {
     if (!userId) return null;
     try {
-        const docRef = doc(db, 'users', userId);
-        const docSnap = await getDoc(docRef);
+        const docSnap = await adminDb.collection('users').doc(userId).get();
 
-        if (!docSnap.exists()) return null;
+        if (!docSnap.exists) return null;
 
         return {
             id: docSnap.id,
