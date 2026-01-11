@@ -13,6 +13,7 @@ import {
     InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 export function OTPForm({ className, ...props }) {
     return (
@@ -66,9 +67,10 @@ export function OTPForm({ className, ...props }) {
                         </FieldGroup>
                     </form>
                     <div className='bg-muted relative hidden md:block'>
-                        <img
+                        <Image
                             src='/sign-up.jpg'
                             alt='Image'
+                            fill
                             className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
                         />
                     </div>

@@ -3,6 +3,7 @@
 import { auth, db } from '@/lib/firebase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -199,9 +200,10 @@ export function SignupForm({ className, ...props }) {
                         </FieldGroup>
                     </form>
                     <div className='bg-muted relative hidden md:block'>
-                        <img
+                        <Image
                             src='/sign-up.jpg'
                             alt='Sign up background'
+                            fill
                             className='absolute inset-0 h-full w-full object-cover '
                         />
                     </div>
