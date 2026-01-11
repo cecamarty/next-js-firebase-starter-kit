@@ -1,14 +1,6 @@
 'use client';
 
-import { auth } from '@/lib/firebase'; // Adjust to your config path
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-
+import { createSession } from '@/app/actions/auth/session';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -17,9 +9,16 @@ import {
     FieldGroup,
     FieldLabel,
 } from '@/components/ui/field';
+import { auth } from '@/lib/firebase'; // Adjust to your config path
 import { cn } from '@/lib/utils';
-import { useTransition } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import * as z from 'zod';
 import EmailInput from './input/email-input';
 import PasswordInput from './input/password-input';
 import OAuthButtons from './o-auth-buttons';
@@ -63,11 +62,17 @@ export function LoginForm({ className, ...props }) {
     const onSubmit = async data => {
         startTransition(async () => {
             try {
-                await signInWithEmailAndPassword(
+                const userCredential = await signInWithEmailAndPassword(
                     auth,
                     data.email,
                     data.password
                 );
+
+                // Get the ID token from the user
+                const token = await userCredential.user.getIdToken();
+                
+                // Create the server-side session
+                await createSession(token);
 
                 toast.success('Login successful!');
                 router.push('/dashboard'); // Redirect on success
