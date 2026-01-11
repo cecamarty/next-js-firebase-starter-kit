@@ -1,11 +1,12 @@
 'use client';
 
+import { createSession } from '@/app/actions/auth/session';
 import { auth, db } from '@/lib/firebase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -20,7 +21,6 @@ import {
 import { cn } from '@/lib/utils';
 import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
 import { toast } from 'sonner';
 import EmailInput from './input/email-input';
 import PasswordInput from './input/password-input';
@@ -92,6 +92,12 @@ export function SignupForm({ className, ...props }) {
                 });
 
                 if (user) {
+                    // Get the ID token from the user
+                    const token = await user.getIdToken();
+                    
+                    // Create the server-side session
+                    await createSession(token);
+
                     toast.success('Account created successfully');
                     router.push('/dashboard');
                 }

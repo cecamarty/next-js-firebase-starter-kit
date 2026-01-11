@@ -1,5 +1,6 @@
 'use client';
 
+import { createSession } from '@/app/actions/auth/session';
 import { Button } from '@/components/ui/button';
 import { Field, FieldSeparator } from '@/components/ui/field';
 import { auth, db } from '@/lib/firebase';
@@ -39,6 +40,13 @@ const OAuthButtons = () => {
                         role: 'user', // Default role
                     });
                 }
+
+                // Get the ID token from the user
+                const token = await user.getIdToken();
+                
+                // Create the server-side session
+                await createSession(token);
+
                 toast.success('Sign in successfully');
                 router.push('/dashboard');
             } catch (error) {
