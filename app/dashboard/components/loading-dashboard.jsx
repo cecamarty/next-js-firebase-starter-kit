@@ -62,7 +62,7 @@ export default function DashboardLoading() {
                                     className='flex-1 bg-slate-100'
                                     style={{
                                         height: `${
-                                            Math.floor(Math.random() * 60) + 20
+                                            ((i * 7) % 60) + 20
                                         }%`,
                                     }}
                                 />

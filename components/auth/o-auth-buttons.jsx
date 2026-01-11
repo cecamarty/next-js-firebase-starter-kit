@@ -14,7 +14,6 @@ import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
 const OAuthButtons = () => {
-    const [isLoading, setIsLoading] = useState(false);
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
 
@@ -68,9 +67,9 @@ const OAuthButtons = () => {
                     variant='outline'
                     type='button'
                     onClick={handleGoogleLogin}
-                    disabled={isLoading}
+                    disabled={isPending}
                     className='flex items-center gap-2 cursor-pointer'>
-                    {isLoading ? (
+                    {isPending ? (
                         <span className='h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent' />
                     ) : (
                         <svg
@@ -96,7 +95,7 @@ const OAuthButtons = () => {
                             />
                         </svg>
                     )}
-                    <span>{isLoading ? 'Connecting...' : 'Google'}</span>
+                    <span>{isPending ? 'Connecting...' : 'Google'}</span>
                     <span className='sr-only'>Continue with Google</span>
                 </Button>
                 {/* <Button variant='outline' type='button'>

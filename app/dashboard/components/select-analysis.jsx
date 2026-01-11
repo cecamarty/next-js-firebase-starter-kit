@@ -8,7 +8,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 
-export function SelectAnalysisType({ isSidebar = false }) {
+export function SelectAnalysisType() {
     return (
         <Select defaultValue='stock-analysis'>
             <SelectTrigger className='w-[180px] bg-transparent border-0'>

@@ -43,7 +43,7 @@ const MarketEvents = () => {
                         </p>
 
                         <h4 className='text-[16px] font-medium leading-[24px] text-foreground mb-4'>
-                            What's Driving the Event?
+                            What&apos;s Driving the Event?
                         </h4>
 
                         <div className='space-y-4'>

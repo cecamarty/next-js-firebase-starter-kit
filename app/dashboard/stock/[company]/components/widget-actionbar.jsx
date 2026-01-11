@@ -31,6 +31,37 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+const ActionButton = ({
+    icon: Icon,
+    hIcon,
+    children,
+    className,
+    actionName,
+    handleAction,
+    ...props
+}) => (
+    <button
+        onClick={() => handleAction(actionName || children)}
+        className={cn(
+            'inline-flex items-center gap-2 px-3 py-2 rounded-sm lg:border lg:border-border lg:bg-card text-[14px] font-medium text-secondary lg:hover:bg-card/80 lg:hover:border-border transition-all lg:shadow-sm group',
+            className
+        )}
+        {...props}>
+        {hIcon ? (
+            <HugeiconsIcon
+                icon={hIcon}
+                className='size-5 text-foreground lg:text-secondary group-hover:text-foreground transition-colors'
+            />
+        ) : (
+            <Icon
+                className='size-5 text-foreground lg:text-secondary group-hover:text-foreground transition-colors'
+                strokeWidth={1.5}
+            />
+        )}
+        <span className='hidden lg:inline text-[14px]'>{children}</span>
+    </button>
+);
+
 const WidgetActionBar = ({ company }) => {
     const router = useRouter();
     const [isPremium] = useState(false); // Simulated membership status
@@ -64,36 +95,6 @@ const WidgetActionBar = ({ company }) => {
         }, 500);
     };
 
-    const ActionButton = ({
-        icon: Icon,
-        hIcon,
-        children,
-        className,
-        actionName,
-        ...props
-    }) => (
-        <button
-            onClick={() => handleAction(actionName || children)}
-            className={cn(
-                'inline-flex items-center gap-2 px-3 py-2 rounded-sm lg:border lg:border-border lg:bg-card text-[14px] font-medium text-secondary lg:hover:bg-card/80 lg:hover:border-border transition-all lg:shadow-sm group',
-                className
-            )}
-            {...props}>
-            {hIcon ? (
-                <HugeiconsIcon
-                    icon={hIcon}
-                    className='size-5 text-foreground lg:text-secondary group-hover:text-foreground transition-colors'
-                />
-            ) : (
-                <Icon
-                    className='size-5 text-foreground lg:text-secondary group-hover:text-foreground transition-colors'
-                    strokeWidth={1.5}
-                />
-            )}
-            <span className='hidden lg:inline text-[14px]'>{children}</span>
-        </button>
-    );
-
     return (
         <div className='bg-background h-[60px] sticky z-40'>
             <div className='flex items-center justify-between h-full'>
@@ -115,17 +116,22 @@ const WidgetActionBar = ({ company }) => {
 
                 {/* Right side: Actions */}
                 <div className='flex items-center gap-2 lg:gap-3'>
-                    <ActionButton icon={Star} actionName='Added to Watchlist'>
+                    <ActionButton
+                        handleAction={handleAction}
+                        icon={Star}
+                        actionName='Added to Watchlist'>
                         Watchlist
                     </ActionButton>
 
                     <ActionButton
+                        handleAction={handleAction}
                         hIcon={Share08Icon}
                         actionName='Shared with friends'>
                         Share
                     </ActionButton>
 
                     <ActionButton
+                        handleAction={handleAction}
                         icon={ArrowDownToLine}
                         actionName='Report Exported'>
                         Export

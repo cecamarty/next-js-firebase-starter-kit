@@ -13,14 +13,14 @@ const InvestmentRationale = () => {
 
                 <div className='space-y-4'>
                     <p className='text-[14px] leading-[20px] text-foreground/80'>
-                        Apple's Q2 2025 financial performance, while exhibiting
+                        Apple&apos;s Q2 2025 financial performance, while exhibiting
                         stable metrics across its income statement, balance
                         sheet, and cash flow, positions the company as an
-                        'Outperform' within the Information Technology sector.
-                        The company's robust year-over-year revenue growth of
+                        &apos;Outperform&apos; within the Information Technology sector.
+                        The company&apos;s robust year-over-year revenue growth of
                         9.63% to $94.036 billion and a corresponding 9.26%
                         increase in net income to $23.434 billion underscore its
-                        enduring market strength. Critically, Apple's strategic
+                        enduring market strength. Critically, Apple&apos;s strategic
                         investments in Research and Development, which increased
                         by 10.74% to $8.866 billion, and its growing Net
                         Property Plant and Equipment, up 9.00% to $48.508
